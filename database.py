@@ -11,7 +11,6 @@ Print out the resulting city and state in a full sentence. For example: "The cit
 import sqlite3 as lite
 import pandas as pd
 
-# FINISH POPULATING CITIES AND WEATHER TUPLES
 cities =(
 		('New York City', 'NY'),
     	('Boston', 'MA'),
@@ -27,7 +26,7 @@ cities =(
     )
 
 weather =(
-		('New York', 2013, 'July', 'January', 62),
+		('New York City', 2013, 'July', 'January', 62),
         ('Boston', 2013, 'July', 'January', 59),
         ('Chicago', 2013, 'July', 'January', 59),
         ('Miami', 2013, 'August', 'December', 84),
@@ -44,17 +43,31 @@ weather =(
 con = lite.connect('getting_started.db')
 
 with con:
-
     cur = con.cursor()
     cur.execute("drop table if exists cities")
     cur.execute("create table cities (name text, state text)")
     cur.execute("drop table if exists weather")
     cur.execute("create table weather (city text, year integer, warm_month text, cold_month text, average_high integer)")
-
-	cur.executemany("INSERT INTO cities VALUES(?,?)", cities)
+    cur.executemany("INSERT INTO cities VALUES(?,?)", cities)
     cur.executemany("INSERT INTO weather VALUES(?,?,?,?,?)", weather)
     ## SQL to join 
-    cur.execute("select city, state from cities inner join weather on cities.name = weather.city where warm_month = 'July'")
+    sql_query = "select city, state from cities inner join weather on cities.name = weather.city where warm_month =?"
+    cur.execute(sql_query, [("July")])
     rows = cur.fetchall()
 
-    df = pd.DataFrame(rows)
+
+#df = pd.DataFrame(rows)
+df = pd.DataFrame(rows, columns = ['city','state'])
+formatted_string = ''
+for row in df.iterrows():
+    #formatted_string += row['city'] + ', ' + row['state']
+    #print formatted_string
+    print row[1]
+    print 'x'
+    print row
+
+placeholder = 'x'
+
+print "The cities that are warmest in July are: %s" % placeholder
+# str(df.[row][0]) + ', ' + str(df.[row][1])
+con.close()
