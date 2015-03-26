@@ -1,12 +1,13 @@
- Print out the cities with the July being the warmest month
-
+ #Print out the cities with the July being the warmest month
+'''
+Steps:
 Connect to the database
 Create the cities and weather tables (HINT: first pass the statement DROP TABLE IF EXISTS <table_name>; to remove the table before you execute the CREATE TABLE ... statement)
 Insert data into the two tables
 Join the data together
 Load into a pandas DataFrame
 Print out the resulting city and state in a full sentence. For example: "The cities that are warmest in July are: Las Vegas, NV, Atlanta, GA..."
-
+'''
 
 import sqlite3 as lite
 import pandas as pd
@@ -55,19 +56,17 @@ with con:
     cur.execute(sql_query, [("July")])
     rows = cur.fetchall()
 
-
-#df = pd.DataFrame(rows)
 df = pd.DataFrame(rows, columns = ['city','state'])
 formatted_string = ''
 for row in df.iterrows():
-    #formatted_string += row['city'] + ', ' + row['state']
-    #print formatted_string
-    print row[1]
-    print 'x'
-    print row
+    city = row[1][0]
+    state = row[1][1]
+    formatted_string += city + ', ' + state
+    if city != 'Atlanta':
+        formatted_string += ', '
+    else:
+        formatted_string += '.'
 
-placeholder = 'x'
+print "The cities that are warmest in July are: %s" % formatted_string
 
-print "The cities that are warmest in July are: %s" % placeholder
-# str(df.[row][0]) + ', ' + str(df.[row][1])
 con.close()
