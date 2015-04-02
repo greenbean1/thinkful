@@ -12,7 +12,7 @@ loansData.dropna(inplace=True)
 
 freq = collections.Counter(loansData['Open.CREDIT.Lines'])
 
-# Chi Square Test on 
+# Chi Square Test on whether 'Open CREDIT Lines' column has given frequencies
 chi, p = stats.chisquare(freq.values())
 print chi, p
 
