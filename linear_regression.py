@@ -13,13 +13,6 @@ print loansData.describe()
 # View first 5 rows of 'Loan.Length' column
 loansData['Loan.Length'][0:5] # first 5 rows of Interest.Rate
 
-# Practice cleaning with lambda function
-#x = loansData['Interest.Rate'][0:5].values[1]
-#f = lambda x: round(float(x.rstrip('%')) / 100, 4)
-#cleaned_practice_fico_range = loansData['FICO.Range'].map(lambda x: x.rstrip(' months'))
-#position = x.find('-')
-#cleaned = int(x[:x.find('-')])
-
 # Clean 'Interest.Rate' column
 cleaned_interest_rate = loansData['Interest.Rate'].map(lambda x: round(float(x.rstrip('%')) / 100, 4))
 loansData['Interest.Rate'] = cleaned_interest_rate
@@ -73,15 +66,21 @@ print 'R-Squared: ', f.rsquared
 
 # Scratch Work
 
-cleaned_fico_range = cleaned_fico_range.map(lambda x: [int(n) for n in x])
+#cleaned_fico_range = cleaned_fico_range.map(lambda x: [int(n) for n in x])
 
-cleaned_fico_range = cleaned_fico_range.map(lambda x: int(x))
-cleaned_fico_range = cleaned_fico_range.map(lambda x: x/1)
-type(cleaned_fico_range)
-
-loansData['FICO.Range'] = cleaned_fico_range
-
-loansData['Interest.Rate'][0:5].replace("%", "") # first 5 rows of Interest.Rate
-
-type(loansData['FICO.Range'][0:5].values[0])
-
+#cleaned_fico_range = cleaned_fico_range.map(lambda x: int(x))
+#cleaned_fico_range = cleaned_fico_range.map(lambda x: x/1)
+#type(cleaned_fico_range)
+#
+#loansData['FICO.Range'] = cleaned_fico_range
+#
+#loansData['Interest.Rate'][0:5].replace("%", "") # first 5 rows of Interest.Rate
+#
+#type(loansData['FICO.Range'][0:5].values[0])
+#
+# Practice cleaning with lambda function
+#x = loansData['Interest.Rate'][0:5].values[1]
+#f = lambda x: round(float(x.rstrip('%')) / 100, 4)
+#cleaned_practice_fico_range = loansData['FICO.Range'].map(lambda x: x.rstrip(' months'))
+#position = x.find('-')
+#cleaned = int(x[:x.find('-')])
